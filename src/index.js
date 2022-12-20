@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const {userService} = require('./services/UserService');
+const {todoService} = require('./services/todoService');
 
 // const { v4: uuidv4 } = require('uuid');
 
@@ -11,31 +13,31 @@ app.use(express.json());
 // const users = [];
 
 function checksExistsUserAccount(request, response, next) {
-  // Complete aqui
+  return userService.userExists(request, response, next);
 }
 
 app.post('/users', (request, response) => {
-  // Complete aqui
+  return userService.createUser(request, response);
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  return todoService.getTodosByUser(request, response);
 });
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  return todoService.createTodo(request, response);
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  return todoService.updateTodo(request, response);
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  return todoService.markTodoAsDone(request, response);
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  return todoService.deleteTodo(request, response);
 });
 
 module.exports = app;
